@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block center%}
+<h2>Lista de Alunos</h2>
+
+<a href="#" class="btn btn-success mb-3">Novo Cadastro</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>cpf</th>
+      <th>Email</th>
+      <th>Telefone</th>
+      <th>Data de nascimento</th>
+      <th>Salario</th>
+      <th>Data de contratação</th>
+      <th>Ativo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for professor in professores %}
+    <tr>
+      <td>{{ professor.nome }}</td>
+      <td>{{ professor.cpf }}</td>
+      <td>{{ professor.email }}</td>
+      <td>{{ professor.telefone }}</td>
+      <td>{{ professor.data_nascimento }}</td>
+      <td>{{ professor.salario }}</td>
+      <td>{{ professor.data_contracacao }}</td>
+      <td>{{ professor.ativo }}</td>
+      <td>
+        <a href="#" class="btn btn-primary btn-sm">Editar</a>
+        <a href="#" class="btn btn-danger btn-sm">Remover</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

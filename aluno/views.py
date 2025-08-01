@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Aluno,Curso,Cidade
-from .forms import AlunoForm
+from .models import Aluno,Curso,Cidade, Professor
+from .forms import AlunoForm, CidadeForm, ProfessorForm
 
 def aluno_editar(request,id):
     aluno = get_object_or_404(Aluno,id=id)
@@ -63,9 +63,53 @@ def curso_listar(request):
     return render(request, "aluno/curso_listar.html", context)
 
 def cidade_criar(request):
-    form = CidadeForm()
+    if request.method == 'POST':
+        form = CidadeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = CidadeForm
+            return redirect('cidade_listar')
+    else:
+        form = CidadeForm()
+
     context= {
         'form': form
     }
  
     return render(request, "cidade/form.html",context)
+
+
+def cidade_listar(request):
+    cidade = Cidade.objects.all()
+    context = {
+        'cidade' : cidade
+    }
+    return render(request, 'cidade/cidade_listar.html', context)
+
+def cidade_remover(request, id):
+    cidade = get_object_or_404(Cidade, id=id)
+    cidade.delete
+    return redirect('cidade_listar')
+
+def listar_professor(request):
+    professor = Professor.objects.all()
+    context = {
+        'professores' : professor
+    }
+    return render(request, "professor/professor.html", context)
+
+def professor_criar(request):
+    if request.method == 'POST':
+        form = ProfessorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = ProfessorForm
+            return redirect('listar_professor')
+    else:
+        form = ProfessorForm()
+
+    context = {
+        'form' : form
+    }
+
+    return render(request, 'professor/form.html', context)

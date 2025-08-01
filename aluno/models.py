@@ -22,4 +22,16 @@ class Aluno(models.Model):
     curso = models.ForeignKey(Curso,on_delete=models.CASCADE)
     foto = models.ImageField(upload_to='fotos_alunos/', blank=True, null=True)
 
-
+class Professor(models.Model):
+    nome = models.CharField(max_length=100)
+    cpf = models.CharField(max_length=14, unique=True)
+    email = models.EmailField()
+    telefone = models.CharField(max_length=15)
+    data_nascimento = models.DateField()
+    especialidade = models.CharField(max_length=100)
+    salario = models.DecimalField(max_digits=10, decimal_places=2)
+    data_contratacao = models.DateField()
+    ativo = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.nome
