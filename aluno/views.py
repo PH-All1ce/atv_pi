@@ -25,10 +25,12 @@ def aluno_remover(request, id):
 
 def aluno_criar(request):
     if request.method == 'POST':
-        form = AlunoForm(request.POST,request.FILES)
+        form = AlunoForm(request.POST)
         if form.is_valid():
             form.save()
             form = AlunoForm()
+            return redirect('aluno_listar')
+
     else:
         form = AlunoForm()
 
@@ -67,7 +69,7 @@ def cidade_criar(request):
         form = CidadeForm(request.POST)
         if form.is_valid():
             form.save()
-            form = CidadeForm
+            form = CidadeForm()
             return redirect('cidade_listar')
     else:
         form = CidadeForm()
@@ -99,17 +101,34 @@ def listar_professor(request):
     return render(request, "professor/professor.html", context)
 
 def professor_criar(request):
+    form = ProfessorForm(request.POST)
+
+
     if request.method == 'POST':
         form = ProfessorForm(request.POST)
+        
         if form.is_valid():
             form.save()
-            form = ProfessorForm
+            form = ProfessorForm()
+            return redirect('listar_professor')
+
+    return render(request, 'professor/form.html', { 'form' : form})
+
+def professor_editar(request, id):
+    professor = get_object_or_404(Professor, id=id)
+
+    if request.method == 'POST':
+        form = ProfessorForm(request.POST, instance=professor)
+        if form.is_valid():
+            form.save()
             return redirect('listar_professor')
     else:
-        form = ProfessorForm()
+        form = ProfessorForm(instance=professor)
 
-    context = {
-        'form' : form
-    }
+        return render(request, 'professor/form.html', {'form' : form})
+    
 
-    return render(request, 'professor/form.html', context)
+def professor_remover(request, id):
+    professor = get_object_or_404(Professor, id=id)
+    professor.delete()
+    return redirect('listar_professor')
