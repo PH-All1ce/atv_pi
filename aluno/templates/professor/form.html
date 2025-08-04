@@ -2,7 +2,9 @@
 
 {% block center %}
 
-<h2>Formulário de Professores</h2>
+  <h2>Formulário de Professores</h2>
+
+  <a href="{% url 'listar_professor' %}" class="btn btn-success mb-3">Lista de professores</a>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -12,37 +14,42 @@
         </div>
 
         <div class="mb-3">
-            <label for="email" class="form-label">CPF</label>
+            <label for="cpf" class="form-label">CPF</label>
             {{ form.cpf }}
         </div>
 
         <div class="mb-3">
-            <label for="endereco" class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             {{ form.email }}
         </div>
 
         <div class="mb-3">
-            <label for="foto" class="form-label">Telefone</label>
+            <label for="telefone" class="form-label">Telefone</label>
             {{ form.telefone }}
         </div>
 
         <div class="mb-3">
-            <label for="cidade" class="form-label">Data de Nascimento</label>
+            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
             {{ form.data_nascimento }}
         </div>
 
         <div class="mb-3">
-            <label for="curso" class="form-label">Salario</label>
+            <label for="especalidade" class="form-label">Especialidade</label>
+            {{ form.especialidade }}
+        </div>
+
+        <div class="mb-3">
+            <label for="salario" class="form-label">Salario</label>
             {{ form.salario }}
         </div>
 
         <div class="mb-3">
-            <label for="curso" class="form-label">Data de Contratação</label>
+            <label for="data_contratacao" class="form-label">Data de Contratação</label>
             {{ form.data_contratacao }}
         </div>
 
         <div class="mb-3">
-            <label for="curso" class="form-label">Ativo</label>
+            <label for="ativo" class="form-label">Ativo</label>
             {{ form.ativo }}
         </div>
 
